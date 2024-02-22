@@ -37,7 +37,7 @@ namespace CaseAPI.Controllers
         public IActionResult Post([FromBody] DocumentDto documentDto)
         {
             _documentService.Create(documentDto);
-            return StatusCode(201, "Created");
+            return StatusCode(201, "Created Successfully");
         }
     }
 }

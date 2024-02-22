@@ -17,8 +17,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 //repos
 builder.Services.AddScoped<IDocumentDal, DocumentDal>();
+builder.Services.AddScoped<ILicenseDal, LicenseDal>();
 //services
 builder.Services.AddScoped<IDocumentService, DocumentManager>();
+builder.Services.AddScoped<ILicenseService, LicenseManager>();
 
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

@@ -5,6 +5,7 @@ using CaseAPI.Models.caseproj;
 using License = CaseAPI.Models.caseproj.License;
 using CaseAPI.Models;
 using AutoMapper;
+using CaseAPI.Business.Abstracts;
 
 namespace CaseAPI.Controllers
 {
@@ -14,10 +15,12 @@ namespace CaseAPI.Controllers
     {
         private readonly UnitOfWork _uow;
         private readonly IMapper _mapper;
-        public LicenseController(UnitOfWork uow, IMapper mapper)
+        private readonly ILicenseService _licenseService;
+        public LicenseController(UnitOfWork uow, IMapper mapper, ILicenseService licenseService)
         {
             _uow = uow;
             _mapper = mapper;
+            _licenseService = licenseService;
         }
 
         [HttpGet("license")]
@@ -32,13 +35,15 @@ namespace CaseAPI.Controllers
         [HttpPost("license/{documentId}")]
         public IActionResult Post([FromBody] LicenseDto licenseDto, int documentId)
         {
-            Document document = (Document) _uow.GetObjectByKey(typeof(Document), documentId);
-            License license = new License(_uow);
-            license.Name = licenseDto.Name;
-            license.Document = document;
-            _uow.Save(license);
-            _uow.CommitChanges();
-            return StatusCode(201, "Created");
+            _licenseService.Create(licenseDto, documentId);
+            return StatusCode(201, "Created Successfully");
+        }
+
+        [HttpDelete("license/{licenseId}")]
+        public IActionResult Delete(int licenseId)
+        {
+            _licenseService.Delete(licenseId);
+            return StatusCode(201, "Deleted Successfully");
         }
     }
 }
