@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="4511ce4d-5fb0-4ad7-a2f0-be12892d98e2" namespace="CaseAPI.Models.caseproj" dataBaseShemaInfo="H4sIAAAAAAAEAN1WXW+bMBR9n7T/gPJcg8EO4IpQtUlXVeuqqh/TXv1xnaARiDAk2b+fSUjSpO3WaVUn7Y177rn4nuuDTXKynObOHCqTlcWg57u4d5J+/JCccQN3dVnxMVwWunQsqzDHS6MGvUldz449b7FYuAviltXYCzD2vW9fru7kBKa8tyVnvyejrDA1LyT07KqOk9xzkYNpl1zFG+QRsIGu+RTSq0xCYSDxdtCWdV60WFpXjc13wTY5ykwLPMwUryHVPG9fsg9uuRdNpi5VSkNMfME1iplmiGosEKMiRiqmPhMiYFjSxOvI2+JhmTfTwuwJeBG2iVbDOpm2j4n3CNgj/kren0p8LBMkDogiHFGmYkRJTK3gUCJF+iEJ+iRUwJ/ItOXeXygdlbKZQlG/v1oiiQ5YpJBm/QDRSMaIBSREUQSaBnZTSey/Wu1zaGfNVzt6N4p3sHQY6Yj3mUSYWs001BGKQ0ytehL5PiEUGPsPLM0ox5zqAPGIg/U1SMSwwIgEQglBIsE4fmtLP1T5+wulGFNKaIxiFStE29NJxDRCIuShVoJCqPSburmLd5SkvTRA3VSlXIGOt4a/rm+YdATz8+WsAmPcEa+5Ow+IGxw5XXrQRi518ZEzbPK6qWBQQFNXPD9ybhqRZ/Iz/Lgvv0MxEHGs/KhPVYQxUGaPpM0Sq/WGOTcGTLsBt812usmpsq2BzpZdX2vortF70C1MyzkcEtfoIXdoL8r0oZATXoxB2Zm18Xo0z/WQ2MnMoKqzf9zbC20kF1BAZe01LKftKWQ6jz6B98gjMNnYPn7KrBUOKvZzq7IR5FDDqTGlzHhtt2xT80xiVXDd5HlrszOY8HlWVtZFmlt/2A/sMGN/XbyDf5f0J3WuYLfkCAAA" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="caseproj" createdInVersion="23.2.4.0" generateJsonSerializationContractResolver="true" generateServiceCollectionExtensions="true" lastModifiedInVersion="23.2.4.0" name="caseproj" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+  <classes>
+    <dataBaseObjectModelHasClasses Id="196b3614-8cdf-47af-8147-b1a8d0907951">
+      <xpObject Id="46031baf-89f9-4f0b-94b8-d8419bb290c4" name="License" baseClass="XPObject" userFileName="License" designerFileName="License.Designer" className="License" virtualName="License">
+        <fields>
+          <generalXpObjectHasFields Id="645e7867-b948-4f52-b71d-785f2a429615">
+            <field Id="ec023d3a-49d8-4384-896c-d35632536dea" name="Name" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="8bee8acc-25b9-485e-a4d4-0db5cc36b108">
+            <field Id="3c3f297d-f952-47c8-9236-77ef42b29381" name="Document" virtualColumnType="Document" logicalType="Document" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+    <dataBaseObjectModelHasClasses Id="ecd77ce3-0330-44de-a31b-6f461f9464ef">
+      <xpObject Id="67f7a59c-0436-46f7-8604-773711334e99" name="Document" baseClass="XPObject" userFileName="Document" designerFileName="Document.Designer" className="Document" virtualName="Document">
+        <fields>
+          <generalXpObjectHasFields Id="93422287-35f3-4e48-821f-039c457f2b44">
+            <field Id="94a0a4f2-a7ae-49ec-90b0-32bdbb37b9a0" name="Name" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="8286c0d9-2fbf-455e-a083-922a7e1269bc">
+            <field Id="40044348-8d8d-44b8-b847-b6a6fdb4e6df" name="Url" virtualColumnType="String" delayedUpdateModifiedOnly="false" />
+          </generalXpObjectHasFields>
+        </fields>
+        <saTargets>
+          <simpleAssociation Id="1b513120-acb8-49a5-9974-29a6f616ab14" sourceCollectionName="Licenses" name="LicenseReferencesDocument" targetFieldName="Document">
+            <xpObjectMoniker Id="46031baf-89f9-4f0b-94b8-d8419bb290c4" />
+          </simpleAssociation>
+        </saTargets>
+        <collectionFields>
+          <xpObjectHasCollectionFields Id="219a2f03-6fd1-40b6-95ae-f6a66cc1bc11">
+            <collectionField Id="655fd2fd-0572-4b1e-94df-ff5ebe69bfa4" name="Licenses" />
+          </xpObjectHasCollectionFields>
+        </collectionFields>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+  </classes>
+</dataBaseObjectModel>
