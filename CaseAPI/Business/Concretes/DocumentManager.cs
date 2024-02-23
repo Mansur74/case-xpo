@@ -23,7 +23,7 @@ namespace CaseAPI.Business.Concretes
         public void Create(DocumentDto documentDto)
         {
             Document document = _documentDal.CreateObject();
-            document = _mapper.Map(documentDto, document);
+            _mapper.Map(documentDto, document);
             _documentDal.Save();
         }
 
