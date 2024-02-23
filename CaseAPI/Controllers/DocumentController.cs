@@ -13,19 +13,15 @@ namespace CaseAPI.Controllers
     [ApiController]
     public class DocumentController : ControllerBase
     {
-        private readonly UnitOfWork _uow;
-        private readonly IMapper _mapper;
         private readonly IDocumentService _documentService;
 
-        public DocumentController(UnitOfWork uow, IMapper mapper, IDocumentService documentService)
+        public DocumentController(IDocumentService documentService)
         {
-            _uow = uow;
-            _mapper = mapper;
             _documentService = documentService;
         }
 
-        [HttpGet("document")]
-        public IActionResult Get()
+        [HttpGet("documents")]
+        public IActionResult GetAll()
         {
 
             ICollection<DocumentDto> result = _documentService.GetAll();
@@ -38,6 +34,13 @@ namespace CaseAPI.Controllers
         {
             _documentService.Create(documentDto);
             return StatusCode(201, "Created Successfully");
+        }
+
+        [HttpDelete("document/{documentId}")]
+        public IActionResult Delete(int documentId)
+        {
+            _documentService.Delete(documentId);
+            return Ok("Deleted Successfully");
         }
     }
 }

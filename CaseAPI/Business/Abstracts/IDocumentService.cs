@@ -7,6 +7,7 @@ namespace CaseAPI.Business.Abstracts
     {
         public ICollection<DocumentDto> GetAll();
         public void Create(DocumentDto documentDto);
-     
+        public void Delete(int documentId);
+
     }
 }

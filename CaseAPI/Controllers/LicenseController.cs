@@ -13,21 +13,16 @@ namespace CaseAPI.Controllers
     [ApiController]
     public class LicenseController : ControllerBase
     {
-        private readonly UnitOfWork _uow;
-        private readonly IMapper _mapper;
         private readonly ILicenseService _licenseService;
-        public LicenseController(UnitOfWork uow, IMapper mapper, ILicenseService licenseService)
+        public LicenseController(ILicenseService licenseService)
         {
-            _uow = uow;
-            _mapper = mapper;
             _licenseService = licenseService;
         }
 
-        [HttpGet("license")]
+        [HttpGet("licenses")]
         public IActionResult Get()
         {
-            XPQuery<License> licenses = _uow.Query<License>();
-            ICollection<LicenseDto> result = _mapper.Map<ICollection<LicenseDto>>(licenses);
+            ICollection<LicenseDto> result = _licenseService.GetAll();
             return Ok(result);
 
         }
@@ -43,7 +38,7 @@ namespace CaseAPI.Controllers
         public IActionResult Delete(int licenseId)
         {
             _licenseService.Delete(licenseId);
-            return StatusCode(201, "Deleted Successfully");
+            return Ok("Deleted Successfully");
         }
     }
 }

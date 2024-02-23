@@ -1,12 +1,12 @@
 ﻿using DevExpress.Xpo;
 using System.Linq.Expressions;
-using static DevExpress.Data.Helpers.ExpressiveSortInfo;
 
 namespace CaseAPI.Core.DataAccess
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         UnitOfWork _uow;
+
         public Repository(UnitOfWork uow)
         {
             _uow = uow;
@@ -23,17 +23,24 @@ namespace CaseAPI.Core.DataAccess
             _uow.CommitChanges();
         }
 
-        public void Delete(Expression<Func<TEntity, bool>> filter)
+        public void Delete(TEntity entity)
         {
-            TEntity entity = new XPQuery<TEntity>(_uow).FirstOrDefault(filter);
+
             _uow.Delete(entity);
             _uow.CommitChanges();
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            TEntity entity = new XPQuery<TEntity>(_uow).FirstOrDefault(filter);
+            TEntity entity = new XPQuery<TEntity>(_uow).SingleOrDefault(filter);
             return entity;
+        }
+
+        public TEntity CreateObject()
+        {
+            TEntity entity = (TEntity) Activator.CreateInstance(typeof(TEntity), _uow);
+            return entity;
+
         }
     }
 }

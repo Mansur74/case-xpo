@@ -4,7 +4,7 @@ using CaseAPI.DataAccess.Abstracts;
 using CaseAPI.Models;
 using CaseAPI.Models.caseproj;
 using DevExpress.Xpo;
-using System.Reflection.Metadata;
+using Microsoft.Extensions.Logging;
 using Document = CaseAPI.Models.caseproj.Document;
 
 namespace CaseAPI.Business.Concretes
@@ -14,18 +14,21 @@ namespace CaseAPI.Business.Concretes
         private readonly ILicenseDal _licenseDal;
         private readonly IDocumentDal _documentDal;
         private readonly IMapper _mapper;
-        private readonly UnitOfWork _uow;
-        public LicenseManager(ILicenseDal licenseDal, IDocumentDal documentDal, IMapper mapper , UnitOfWork uow)
+        private readonly ILogger<LicenseManager> _logger;
+        public LicenseManager(ILicenseDal licenseDal, IDocumentDal documentDal, IMapper mapper, ILogger<LicenseManager> logger)
         {
             _licenseDal = licenseDal;
             _documentDal = documentDal;
             _mapper = mapper;
-            _uow = uow;
+            _logger = logger;
         }
         public void Create(LicenseDto licenseDto, int documentId)
         {
             Document document = _documentDal.Get((d) => d.Oid == documentId);
-            License license = new License(_uow);
+            if (document == null)
+                throw new Exception("Document does not exist");
+
+            License license = _licenseDal.CreateObject();
             license = _mapper.Map(licenseDto, license);
 ;           license.Document = document;
             _licenseDal.Add(license);
@@ -33,7 +36,10 @@ namespace CaseAPI.Business.Concretes
 
         public void Delete(int licenseId)
         {
-            _licenseDal.Delete((d) => d.Oid == licenseId);
+            License license = _licenseDal.Get((l) => l.Oid == licenseId);
+            if (license == null)
+                throw new Exception("License does not exist");
+            _licenseDal.Delete(license);
         }
 
         public ICollection<LicenseDto> GetAll()

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using CaseAPI.Business.Abstracts;
 using CaseAPI.DataAccess.Abstracts;
+using CaseAPI.DataAccess.Concretes;
 using CaseAPI.Models;
 using CaseAPI.Models.caseproj;
 using DevExpress.Xpo;
+using System.ComponentModel;
 
 namespace CaseAPI.Business.Concretes
 {
@@ -11,18 +13,24 @@ namespace CaseAPI.Business.Concretes
     {
         private readonly IDocumentDal _documentDal;
         private readonly IMapper _mapper;
-        private readonly UnitOfWork _uow;
         public DocumentManager(IDocumentDal documentDal, IMapper mapper, UnitOfWork uow) 
         {
             _documentDal = documentDal;
             _mapper = mapper;
-            _uow = uow;
         }
         public void Create(DocumentDto documentDto)
         {
-            Document document = new Document(_uow);
+            Document document = _documentDal.CreateObject();
             document = _mapper.Map(documentDto, document);
             _documentDal.Add(document);
+        }
+
+        public void Delete(int documentId)
+        {
+            Document document = _documentDal.Get((d) => d.Oid == documentId);
+            if (document == null)
+                throw new Exception("Document does not exist");
+            _documentDal.Delete(document);
         }
 
         public ICollection<DocumentDto> GetAll()
