@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using CaseAPI.Business.Abstracts;
+﻿using CaseAPI.Business.Abstracts;
 using CaseAPI.Models;
-using CaseAPI.Models.caseproj;
-using DevExpress.Xpo;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static DevExpress.Data.Helpers.ExpressiveSortInfo;
 
 namespace CaseAPI.Controllers
 {
@@ -29,11 +24,26 @@ namespace CaseAPI.Controllers
 
         }
 
+        [HttpGet("document/{documentId}")]
+        public IActionResult Get(int documentId)
+        {
+            DocumentDto result = _documentService.GetById(documentId);
+            return Ok(result);
+
+        }
+
         [HttpPost("document")]
         public IActionResult Post([FromBody] DocumentDto documentDto)
         {
             _documentService.Create(documentDto);
             return StatusCode(201, "Created Successfully");
+        }
+
+        [HttpPost("document/{documentId}")]
+        public IActionResult Post([FromBody] DocumentDto documentDto, int documentId)
+        {
+            _documentService.Update(documentDto, documentId);
+            return Ok("Updated Successfully");
         }
 
         [HttpDelete("document/{documentId}")]

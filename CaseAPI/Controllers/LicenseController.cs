@@ -1,10 +1,5 @@
-﻿using DevExpress.Xpo;
-using DevExpress.Xpo.DB;
-using Microsoft.AspNetCore.Mvc;
-using CaseAPI.Models.caseproj;
-using License = CaseAPI.Models.caseproj.License;
+﻿using Microsoft.AspNetCore.Mvc;
 using CaseAPI.Models;
-using AutoMapper;
 using CaseAPI.Business.Abstracts;
 
 namespace CaseAPI.Controllers
@@ -27,12 +22,28 @@ namespace CaseAPI.Controllers
 
         }
 
+        [HttpGet("license/{licenseId}")]
+        public IActionResult Get(int licenseId)
+        {
+            LicenseDto result = _licenseService.GetById(licenseId);
+            return Ok(result);
+
+        }
+
         [HttpPost("license/{documentId}")]
         public IActionResult Post([FromBody] LicenseDto licenseDto, int documentId)
         {
             _licenseService.Create(licenseDto, documentId);
             return StatusCode(201, "Created Successfully");
         }
+
+        [HttpPut("license/{licenseId}")]
+        public IActionResult Put([FromBody] LicenseDto licenseDto, int licenseId)
+        {
+            _licenseService.Update(licenseDto, licenseId);
+            return Ok("Updated Successfully");
+        }
+
 
         [HttpDelete("license/{licenseId}")]
         public IActionResult Delete(int licenseId)

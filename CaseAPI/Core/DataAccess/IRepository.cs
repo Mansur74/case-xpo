@@ -7,7 +7,7 @@ namespace CaseAPI.Core.DataAccess
         public ICollection<TEntity> GetAll();
         public TEntity Get(Expression<Func<TEntity, bool>> filter);
         public void Delete(TEntity entity);
-        public void Add(TEntity entity);
+        public void Save();
         public TEntity CreateObject();
     }
 }

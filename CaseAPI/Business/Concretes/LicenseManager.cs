@@ -14,13 +14,11 @@ namespace CaseAPI.Business.Concretes
         private readonly ILicenseDal _licenseDal;
         private readonly IDocumentDal _documentDal;
         private readonly IMapper _mapper;
-        private readonly ILogger<LicenseManager> _logger;
-        public LicenseManager(ILicenseDal licenseDal, IDocumentDal documentDal, IMapper mapper, ILogger<LicenseManager> logger)
+        public LicenseManager(ILicenseDal licenseDal, IDocumentDal documentDal, IMapper mapper)
         {
             _licenseDal = licenseDal;
             _documentDal = documentDal;
             _mapper = mapper;
-            _logger = logger;
         }
         public void Create(LicenseDto licenseDto, int documentId)
         {
@@ -31,7 +29,7 @@ namespace CaseAPI.Business.Concretes
             License license = _licenseDal.CreateObject();
             license = _mapper.Map(licenseDto, license);
 ;           license.Document = document;
-            _licenseDal.Add(license);
+            _licenseDal.Save();
         }
 
         public void Delete(int licenseId)
@@ -39,6 +37,7 @@ namespace CaseAPI.Business.Concretes
             License license = _licenseDal.Get((l) => l.Oid == licenseId);
             if (license == null)
                 throw new Exception("License does not exist");
+
             _licenseDal.Delete(license);
         }
 
@@ -47,6 +46,25 @@ namespace CaseAPI.Business.Concretes
             ICollection<License> licenses = _licenseDal.GetAll();
             ICollection<LicenseDto> result = _mapper.Map<ICollection<LicenseDto>>(licenses);
             return result;
+        }
+
+        public LicenseDto GetById(int licenseId)
+        {
+            License license = _licenseDal.Get((l) => l.Oid == licenseId);
+            if (license == null)
+                throw new Exception("License does not exist");
+
+            return _mapper.Map<LicenseDto>(license);
+        }
+
+        public void Update(LicenseDto licenseDto, int licenseId)
+        {
+            License license = _licenseDal.Get((l) => l.Oid == licenseId);
+            if (license == null)
+                throw new Exception("License does not exist");
+
+            license.Name = licenseDto.Name;
+            _licenseDal.Save();
         }
     }
 }

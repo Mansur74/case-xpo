@@ -17,9 +17,8 @@ namespace CaseAPI.Core.DataAccess
             return result;
         }
 
-        public void Add(TEntity entity)
+        public void Save()
         {
-            _uow.Save(entity);
             _uow.CommitChanges();
         }
 
@@ -27,12 +26,12 @@ namespace CaseAPI.Core.DataAccess
         {
 
             _uow.Delete(entity);
-            _uow.CommitChanges();
+            Save();
         }
 
         public TEntity Get(Expression<Func<TEntity, bool>> filter)
         {
-            TEntity entity = new XPQuery<TEntity>(_uow).SingleOrDefault(filter);
+            TEntity entity = new XPQuery<TEntity>(_uow).Where(filter).SingleOrDefault();
             return entity;
         }
 
