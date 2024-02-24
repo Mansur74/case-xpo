@@ -1,4 +1,4 @@
--> Case (Challange) project
--> ASP.NET CORE with DevExpress XPO
--> CRUD operations
--> XUnit tests
+-> Case (Challange) project <br/>
+-> ASP.NET CORE with DevExpress XPO <br/>
+-> CRUD operations <br/>
+-> XUnit tests <br/>
