@@ -25,7 +25,7 @@ namespace CaseAPI.Controllers
         }
 
         [HttpGet("document/{documentId}")]
-        public IActionResult Get(int documentId)
+        public IActionResult GetById(int documentId)
         {
             DocumentDto result = _documentService.GetById(documentId);
             return Ok(result);
@@ -33,14 +33,14 @@ namespace CaseAPI.Controllers
         }
 
         [HttpPost("document")]
-        public IActionResult Post([FromBody] DocumentDto documentDto)
+        public IActionResult Create([FromBody] DocumentDto documentDto)
         {
             _documentService.Create(documentDto);
             return StatusCode(201, "Created Successfully");
         }
 
         [HttpPost("document/{documentId}")]
-        public IActionResult Post([FromBody] DocumentDto documentDto, int documentId)
+        public IActionResult Update([FromBody] DocumentDto documentDto, int documentId)
         {
             _documentService.Update(documentDto, documentId);
             return Ok("Updated Successfully");

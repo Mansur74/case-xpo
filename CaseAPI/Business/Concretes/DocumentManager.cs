@@ -20,20 +20,22 @@ namespace CaseAPI.Business.Concretes
             _documentDal = documentDal;
             _mapper = mapper;
         }
-        public void Create(DocumentDto documentDto)
+        public bool Create(DocumentDto documentDto)
         {
             Document document = _documentDal.CreateObject();
             _mapper.Map(documentDto, document);
             _documentDal.Save();
+            return true;
         }
 
-        public void Delete(int documentId)
+        public bool Delete(int documentId)
         {
             Document document = _documentDal.Get((d) => d.Oid == documentId);
             if (document == null)
                 throw new Exception("Document does not exist");
 
             _documentDal.Delete(document);
+            return true;
         }
 
         public ICollection<DocumentDto> GetAll()
@@ -52,7 +54,7 @@ namespace CaseAPI.Business.Concretes
             return _mapper.Map<DocumentDto>(document);
         }
 
-        public void Update(DocumentDto documentDto, int documentId)
+        public bool Update(DocumentDto documentDto, int documentId)
         {
             Document document = _documentDal.Get((l) => l.Oid == documentId);
             if (document == null)
@@ -61,6 +63,7 @@ namespace CaseAPI.Business.Concretes
             document.Name = documentDto.Name;
             document.Url = documentDto.Url;
             _documentDal.Save();
+            return true;
         }
     }
 }
