@@ -39,7 +39,7 @@ namespace CaseAPI.Controllers
             return StatusCode(201, "Created Successfully");
         }
 
-        [HttpPost("document/{documentId}")]
+        [HttpPut("document/{documentId}")]
         public IActionResult Update([FromBody] DocumentDto documentDto, int documentId)
         {
             _documentService.Update(documentDto, documentId);
